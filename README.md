@@ -1,2 +1,2 @@
-# appcan-plugin-demo-android
-Android插件基础工程
+# uexMultiDownloader
+多线程下载
