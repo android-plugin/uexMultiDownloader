@@ -2,6 +2,17 @@
 <uexplugins>
     <plugin
         className="org.zywx.wbpalmstar.plugin.uexmultidownloader.EUExMultiDownloader" uexName="uexMultiDownloader" >
-        <method name="" type="012" params="param1|param2"/>
-</plugin>
+        <method name="openManagerView"/>
+        <method name="closeManagerView"/>
+        <method name="enqueue"
+                type="1"
+                params="id|url|savePath|name|mimeType"/>
+        <method name="onComplete"
+                type="2"/>
+        <method name="close"/>
+        <method name="open"
+            params="x|y|w|h"/>
+        <method name="onTaskDetail"
+            type="2"/>
+    </plugin>
 </uexplugins>

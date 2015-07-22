@@ -1,95 +1,94 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="css/index.css">
-	
-	<script type="text/javascript">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 
-	function funcD1(opCode, dataType, data){
-		document.getElementById('f1').innerHTML = "以下是Native plugin返回的值：<br><p style='color:red;'>" + data + "</p>";
-	}
-	
-	function funcD3(opCode, dataType, data){
-		document.getElementById('f3').innerHTML = "以下是用户输入的返回的值：<br>" + data;
-	}
-	
-	function onCb(info){
-		document.getElementById('f2').innerHTML = "以下是onCallBack的返回值：<br>" + info;
-	}
+    <script type="text/javascript">
+    function openManagerView(){
+        var params = {
+        };
+        var data = JSON.stringify(params);
+        uexMultiDownloader.openManagerView(data);
+    }
 
-	window.uexOnload = function(type){
-		if(type == 0){  
-			uexDemo.cbStartActivityForResult = funcD1;
-			uexDemo.cbTest_showInputDialog = funcD3;
-			uexDemo.onCallBack = onCb;
-		}
-	}
-	
-	function openv(){
-		var time = document.getElementById("time").value;
-		uexDemo.test_vibrator(time);
-	}
-	
-	function openMyView(){
-		var x = document.getElementById("x").value;
-		var y = document.getElementById("y").value;
-		var w = document.getElementById("w").value;
-		var h = document.getElementById("h").value;
-		uexDemo.test_addMyViewToWindow(x, y, w, h);
-	}
-	
-</script>
+    function closeManagerView(){
+        var params = {
+        };
+        var data = JSON.stringify(params);
+        uexMultiDownloader.closeManagerView(data);
+    }
+
+    function enqueue(){
+        var jsonStr1 = '{id:"1",url:"http://xiazai.zol.com.cn/down.php?nn=f4afd4327335fd3a1&softid=325408&subcateid=103&site=10&server=10&rand=3331525",savePath:"/sdcard/360/a3.exe",name:"a.png",mimeType:"23"}';
+        var jsonStr2 = '{id:"2",url:"http://img.byecity.com.cn/fs/brs/imgs/menpiao/2014-12/94-12112Q43226_middle.jpg",savePath:"/sdcard/360/b.jpg",name:"b.jpg",mimeType:"23"}';
+        var jsonStr3 = '{id:"3",url:"http://down.360safe.com/360mobilemgr/360box_web.apk",savePath:"/sdcard/360/360box_web.apk",name:"360box_web.apk",mimeType:"23"}';
+        var jsonStr4 = '{id:"4",url:"http://dlsw.baidu.com/sw-search-sp/soft/4f/20605/BaiduType_Setup_Light.1413528566.exe",savePath:"/sdcard/360/BaiduType_Setup_Light.1413528566.exe",name:"BaiduType_Setup_Light.1413528566.exe",mimeType:"23"}';
+        var jsonStr5 = '{id:"5",url:"http://dlsw.baidu.com/sw-search-sp/soft/4e/16671/freewb10th.322658870.exe",savePath:"/sdcard/360/freewb10th.322658870.exe",name:"freewb10th.322658870.exe",mimeType:"23"}';
+       var jsonStr6 = '{id:"6",url:"http://dlsw.baidu.com/sw-search-sp/soft/50/15251/zzbihua_V7.0.7.4_Setup.1422241616.exe",savePath:"/sdcard/360/zzbihua_V7.0.7.4_Setup.1422241616.exe",name:"zzbihua_V7.0.7.4_Setup.1422241616.exe",mimeType:"23"}';
+         uexMultiDownloader.enqueue(jsonStr1);
+        uexMultiDownloader.enqueue(jsonStr2);
+        uexMultiDownloader.enqueue(jsonStr3);
+        uexMultiDownloader.enqueue(jsonStr4);
+        uexMultiDownloader.enqueue(jsonStr5);
+        uexMultiDownloader.enqueue(jsonStr6);
+    }
+
+    function closeView(){
+        var params = {
+        };
+        var data = JSON.stringify(params);
+        uexMultiDownloader.close(data);
+    }
+
+    function openView(){
+        var params = {
+            x:"0",
+            y:"500",
+            w:"1000",
+            h:"1000"
+        };
+        var data = JSON.stringify(params);
+        uexMultiDownloader.open(data);
+    }
+
+
+        window.uexOnload = function(type){
+            if(type == 0){
+            uexMultiDownloader.cbEnqueue = cbEnqueue;
+            uexMultiDownloader.onComplete = onComplete;
+            uexMultiDownloader.onTaskDetail = onTaskDetail;
+            }
+        }
+    function cbEnqueue(info){
+     //   alert(info);
+    }
+
+    function onComplete(info){
+        alert(info);
+    }
+
+    function onTaskDetail(info){
+        alert(info);
+    }
+
+    </script>
 </head>
 
 <body>
-	<div class="tit">uexDemo对象</div>
-	<div class="conbor">
-		<div class="consj">
-		
-			<span>1.test_startActivityForResult接口</span>
-			<div class="tcxx" id="f1">
-			此接口将打开一个自定义的activity：HelloAppCanNative，并获取其操作后的返回值。
-			</div>
-			<input class="btn" type="button" value="点击调用接口" onclick="uexDemo.test_startActivityForResult();"><br><br>
-			
-			<span>2.test_vibrator接口</span>
-			<div class="tcxx" id="f2">
-			此接口将调用设备的震动，需输入震动时间，单位为毫秒
-			</div>
-			<span>请输入时间</span>
-			<input class="textbox" type="text" id="time" value="3000">
-			<input class="btn" type="button" value="点击调用接口" onclick="openv();"><br><br>
-			
-			<span>3.test_showInputDialog接口</span>
-			<div class="tcxx" id="f3">
-			此接口将打开一个自定义的输入框，并获取其操作后的返回值。
-			</div>
-			<input class="btn" type="button" value="点击调用接口" onclick="uexDemo.test_showInputDialog('这是默认值');"><br><br>
-			
-			<span>4.test_addMyViewToWindow接口</span>
-			<div class="tcxx">
-			此接口将打开一个自定义的View添加到当前屏幕上。
-			</div>
-			<span>x:</span>
-			<input class="textbox" type="text" id="x" value="0">
-			<span>y:</span>
-			<input class="textbox" type="text" id="y" value="0">
-			<span>width:</span>
-			<input class="textbox" type="text" id="w" value="200">
-			<span>height:</span>
-			<input class="textbox" type="text" id="h" value="200">
-			<input class="btn" type="button" value="点击调用接口" onclick="openMyView();"><br><br>
-			
-			<span>5.test_removeMyViewFromWindow接口</span>
-			<div class="tcxx" >
-			此接口将从屏幕上移除刚刚打开的自定义View。
-			</div>
-			<input class="btn" type="button" value="点击调用接口" onclick="uexDemo.test_removeMyViewFromWindow();"><br><br>
-			
-		</div>
-	</div>
+<div class="tit">uexMultiDownloader</div>
+<div class="conbor">
+    <div class="consj">
+        <input class='btn' type='button' value='open' onclick='openView()'>
+            <input class='btn' type='button' value='enqueue' onclick='enqueue()'>
+
+            <input class='btn' type='button' value='close' onclick='closeView()'>
+
+
+
+    </div>
+</div>
 </body>
 </html>
