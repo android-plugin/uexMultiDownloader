@@ -59,8 +59,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
-            android:name="com.test.HelloAppCanNativeActivity"></activity>
         <service android:name="org.zywx.wbpalmstar.plugin.uexmultidownloader.DownLoadService"/>
     </application>
 
