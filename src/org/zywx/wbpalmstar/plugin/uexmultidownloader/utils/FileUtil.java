@@ -16,7 +16,7 @@ public final class FileUtil {
      * @return 文件名
      */
     public static String getFileNameFromUrl(String url) {
-        return url.substring(url.lastIndexOf("/"));
+        return url.substring(url.lastIndexOf("/")).replace("/","");
     }
 
     /**

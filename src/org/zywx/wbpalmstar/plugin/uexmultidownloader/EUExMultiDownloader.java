@@ -9,9 +9,11 @@ import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.zywx.wbpalmstar.base.BUtility;
 import org.zywx.wbpalmstar.engine.EBrowserView;
 import org.zywx.wbpalmstar.engine.universalex.EUExBase;
 import org.zywx.wbpalmstar.engine.universalex.EUExUtil;
+import org.zywx.wbpalmstar.plugin.uexmultidownloader.utils.FileUtil;
 import org.zywx.wbpalmstar.plugin.uexmultidownloader.vo.DownloadItemVO;
 import org.zywx.wbpalmstar.plugin.uexmultidownloader.vo.OpenInputVO;
 
@@ -93,11 +95,17 @@ public class EUExMultiDownloader extends EUExBase {
         String json = params[0];
         if (multiDownloadView!=null){
             DownloadItemVO inputVO=gson.fromJson(json,DownloadItemVO.class);
+            String realPath=BUtility.makeRealPath(
+                    BUtility.makeUrl(mBrwView.getCurrentUrl(), inputVO.getSavePath()),
+                    mBrwView.getCurrentWidget().m_widgetPath,
+                    mBrwView.getCurrentWidget().m_wgtType);
             inputVO.setState(DownloadItemVO.State.LOADING);
+            inputVO.setSavePath(realPath);
+            inputVO.setName(FileUtil.getFileNameFromUrl(realPath));
             boolean result=multiDownloadView.addTask(inputVO);
             JSONObject jsonResult = new JSONObject();
             try {
-                jsonResult.put("result", result);
+                jsonResult.put("result", result?0:1);
             } catch (JSONException e) {
             }
             callBackPluginJs(JsConst.CALLBACK_ENQUEUE, jsonResult.toString());
